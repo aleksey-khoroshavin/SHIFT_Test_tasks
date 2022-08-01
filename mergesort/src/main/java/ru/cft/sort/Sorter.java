@@ -11,7 +11,7 @@ import ru.cft.util.SortParams;
 
 public class Sorter {
     private SortParams sortParams;
-    private FileWriter outFileReader;
+    private FileWriter outFileWriter;
     private List<FileReader> inputFilesReaders = new ArrayList<>();
 
     public Sorter(SortParams sortParams){
@@ -35,10 +35,12 @@ public class Sorter {
             }
 
             if(inputFilesReaders.size() == 0){
-                throw new IllegalArgumentException("Не найдено ни одного входного файла! Проверьте праивльность аргументов");
+                throw new IllegalArgumentException("Не найдено ни одного входного файла! Проверьте правильность аргументов");
             }
 
-            outFileReader = new FileWriter(sortParams.getOutputFileName());
+            outFileWriter = new FileWriter(sortParams.getOutputFileName());
+
+            
 
         }
         catch(IOException exception){
@@ -46,10 +48,19 @@ public class Sorter {
         }
         finally{
             try{
-                outFileReader.close();
+                if(outFileWriter != null){
+                    outFileWriter.flush();
+                    outFileWriter.close();
+                }
+                
+                for(FileReader inFileReader : inputFilesReaders){
+                    if(inFileReader!= null){
+                        inFileReader.close();
+                    }
+                }
             }
             catch(IOException exception2){
-                exception2.printStackTrace();
+                System.out.println(exception2.getMessage());
             }
             
         }
