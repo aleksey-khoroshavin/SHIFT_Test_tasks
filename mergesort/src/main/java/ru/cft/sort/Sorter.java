@@ -62,7 +62,7 @@ public class Sorter {
                             if (sortParams.getSortType().equals(SortType.DIGIT)) {
                                 if (!NumberChecker.isNumeric(line)) {
                                     System.out.println("Обнаружен неверный формат числовых данных во входном файле: "
-                                            + inReader.getKey().getFileName() + ", часть данных будет потеряна!");
+                                            + inReader.getKey().getFileName() + ", строка:[" + line + "], часть данных будет потеряна!");
                                     inReader.getKey().close();
                                     iterator.remove();
                                     continue;
@@ -71,8 +71,8 @@ public class Sorter {
 
                             if (sortParams.getSortType().equals(SortType.STR)) {
                                 if (line.contains(" ")) {
-                                    System.out.println("Обнаружена строка, содержащая пробел в файле:"
-                                            + inReader.getKey().getFileName() + ", часть данных будет потеряна!");
+                                    System.out.println("Обнаружена строка, содержащая пробел во входном файле:"
+                                            + inReader.getKey().getFileName() + ", строка:[" + line + "], часть данных будет потеряна!");
                                     inReader.getKey().close();
                                     iterator.remove();
                                     continue;
