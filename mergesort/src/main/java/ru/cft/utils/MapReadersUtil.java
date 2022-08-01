@@ -3,17 +3,27 @@ package ru.cft.utils;
 import java.util.Collection;
 
 import ru.cft.params.SortDirection;
+import ru.cft.params.SortType;
 
 public class MapReadersUtil {
-    public static String findNextOrderElement(Collection<String> values, SortDirection sortDirection){
+    public static String findNextOrderElement(Collection<String> values, SortDirection sortDirection, SortType sortType){
         if(sortDirection.equals(SortDirection.ASC)){
-            return finMinElement(values);
+            if(sortType.equals(SortType.STR)){
+                return finMinStrElement(values);
+            }else{
+                return findMinDigitElement(values);
+            }
+            
         }else{
-            return findMaxElement(values);
+            if(sortType.equals(SortType.STR)){
+                return findMaxStrElement(values);
+            }else{
+                return findMaxDigitElement(values);
+            }
         }
     }
 
-    private static String finMinElement(Collection<String> values){
+    private static String finMinStrElement(Collection<String> values){
         String tmpElement = null;
 
         for(String value : values){
@@ -29,7 +39,28 @@ public class MapReadersUtil {
         return tmpElement;
     }
 
-    private static String findMaxElement(Collection<String> values){
+    private static String findMinDigitElement(Collection<String> values){
+        Integer tmpElement = null;
+
+        try{
+            for(String value : values){
+                if(tmpElement == null){
+                    tmpElement = Integer.parseInt(value);
+                }else{
+                    if(tmpElement.compareTo(Integer.parseInt(value)) >= 0){                       
+                        tmpElement = Integer.parseInt(value);
+                    }
+                }
+            }
+        }
+        catch(NumberFormatException exception){
+            tmpElement = null;
+        }
+
+        return tmpElement.toString();
+    }
+
+    private static String findMaxStrElement(Collection<String> values){
         String tmpElement = null;
 
         for(String value : values){
@@ -43,5 +74,26 @@ public class MapReadersUtil {
         }
 
         return tmpElement;
+    }
+
+    private static String findMaxDigitElement(Collection<String> values){
+        Integer tmpElement = null;
+
+        try{
+            for(String value : values){
+                if(tmpElement == null){
+                    tmpElement = Integer.parseInt(value);
+                }else{
+                    if(tmpElement.compareTo(Integer.parseInt(value)) <= 0){
+                        tmpElement = Integer.parseInt(value);
+                    }
+                }
+            }
+        }
+        catch(NumberFormatException exception){
+            tmpElement = null;
+        }
+
+        return tmpElement.toString();
     }
 }

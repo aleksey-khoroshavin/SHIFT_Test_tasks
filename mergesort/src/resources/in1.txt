@@ -1,3 +1,4 @@
 adobe
+clear
 photoshop
 value

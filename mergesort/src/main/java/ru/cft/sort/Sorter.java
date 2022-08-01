@@ -81,7 +81,7 @@ public class Sorter {
 
                             if (inReader.getValue() != null && !inReader.getValue().isEmpty()) {
                                 if (!OrderChecker.isCorrectOrder(line, inReader.getValue(),
-                                        sortParams.getSortDirection())) {
+                                        sortParams.getSortDirection(), sortParams.getSortType())) {
                                     System.out.println("Обнаружен неверный порядок эелементов в файле: "
                                             + inReader.getKey().getFileName() + ", часть данных будет потеряна!");
                                     System.out.println("Проблема в идущих подряд элементах: " + line + " и " + inReader.getValue());
@@ -102,12 +102,14 @@ public class Sorter {
                 }
 
                 if (inputFilesReaders.size() > 0) {
-                    String nextOutElement = MapReadersUtil.findNextOrderElement(inputFilesReaders.values(), sortParams.getSortDirection());
+                    String nextOutElement = MapReadersUtil.findNextOrderElement(inputFilesReaders.values(),
+                            sortParams.getSortDirection(), sortParams.getSortType());
                     outFileWriter.write(nextOutElement + "\n");
 
                     for (Map.Entry<FileElementReader, String> inReader : inputFilesReaders.entrySet()) {
                         if (inReader.getValue().compareTo(nextOutElement) == 0) {
                             inReader.getKey().setNeedToReadNext(true);
+                            break;
                         }
                     }
                 }
