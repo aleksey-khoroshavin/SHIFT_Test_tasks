@@ -20,7 +20,7 @@ public class MapReadersUtil {
             if(tmpElement == null){
                 tmpElement = value;
             }else{
-                if(tmpElement.compareTo(value) == 1){
+                if(tmpElement.compareTo(value) >= 0){
                     tmpElement = value;
                 }
             }
@@ -36,7 +36,7 @@ public class MapReadersUtil {
             if(tmpElement == null){
                 tmpElement = value;
             }else{
-                if(tmpElement.compareTo(value) == -1){
+                if(tmpElement.compareTo(value) <= 0){
                     tmpElement = value;
                 }
             }

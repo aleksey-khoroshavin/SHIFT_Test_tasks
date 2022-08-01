@@ -1,12 +1,10 @@
 package ru.cft.utils;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.Reader;
 
 public class FileElementReader extends BufferedReader{
     private String fileName;
-    private String fileElement;
 
     private boolean needToReadNext = true;
 
@@ -25,11 +23,5 @@ public class FileElementReader extends BufferedReader{
 
     public boolean isNeedToReadNext(){
         return needToReadNext;
-    }
-
-    @Override
-    public String readLine() throws IOException{
-        fileElement = super.readLine();
-        return fileElement;
     }
 }

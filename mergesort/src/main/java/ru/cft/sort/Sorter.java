@@ -6,13 +6,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import ru.cft.params.SortParams;
 import ru.cft.params.SortType;
 import ru.cft.utils.FileElementReader;
 import ru.cft.utils.MapReadersUtil;
 import ru.cft.utils.NumberChecker;
+import ru.cft.utils.OrderChecker;
 
 public class Sorter {
     private SortParams sortParams;
@@ -48,7 +51,10 @@ public class Sorter {
 
             while(true){
                 
-                for(Map.Entry<FileElementReader, String> inReader : inputFilesReaders.entrySet()){
+                Iterator<Entry<FileElementReader, String>> iterator = inputFilesReaders.entrySet().iterator();
+                while(iterator.hasNext()){
+                    Entry<FileElementReader, String> inReader = iterator.next();
+
                     if(inReader.getKey().isNeedToReadNext()){
                         String line;
                         if ((line = inReader.getKey().readLine()) != null) {
@@ -58,7 +64,8 @@ public class Sorter {
                                     System.out.println("Обнаружен неверный формат числовых данных во входном файле: "
                                             + inReader.getKey().getFileName() + ", часть данных будет потеряна!");
                                     inReader.getKey().close();
-                                    inputFilesReaders.remove(inReader.getKey());
+                                    iterator.remove();
+                                    continue;
                                 }
                             }
 
@@ -67,16 +74,29 @@ public class Sorter {
                                     System.out.println("Обнаружена строка, содержащая пробел в файле:"
                                             + inReader.getKey().getFileName() + ", часть данных будет потеряна!");
                                     inReader.getKey().close();
-                                    inputFilesReaders.remove(inReader.getKey());
+                                    iterator.remove();
+                                    continue;
                                 }
                             }
 
+                            if (inReader.getValue() != null && !inReader.getValue().isEmpty()) {
+                                if (!OrderChecker.isCorrectOrder(line, inReader.getValue(),
+                                        sortParams.getSortDirection())) {
+                                    System.out.println("Обнаружен неверный порядок эелементов в файле: "
+                                            + inReader.getKey().getFileName() + ", часть данных будет потеряна!");
+                                    System.out.println("Проблема в идущих подряд элементах: " + line + " и " + inReader.getValue());
+                                    inReader.getKey().close();
+                                    iterator.remove();
+                                    continue;
+                                }
+                            }
+                            
                             inReader.setValue(line);
                             inReader.getKey().setNeedToReadNext(false);
 
                         } else {
                             inReader.getKey().close();
-                            inputFilesReaders.remove(inReader.getKey());
+                            iterator.remove();
                         }
                     }
                 }
@@ -86,10 +106,14 @@ public class Sorter {
                     outFileWriter.write(nextOutElement + "\n");
 
                     for (Map.Entry<FileElementReader, String> inReader : inputFilesReaders.entrySet()) {
-                        if (inReader.getValue().equals(nextOutElement)) {
+                        if (inReader.getValue().compareTo(nextOutElement) == 0) {
                             inReader.getKey().setNeedToReadNext(true);
                         }
                     }
+                }
+
+                if(inputFilesReaders.size() == 0){
+                    break;
                 }
                 
             }
