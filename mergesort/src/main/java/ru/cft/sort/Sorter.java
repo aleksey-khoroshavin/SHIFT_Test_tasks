@@ -1,18 +1,24 @@
 package ru.cft.sort;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
+import ru.cft.util.FileElementReader;
+import ru.cft.util.MapReadersUtil;
+import ru.cft.util.NumberChecker;
 import ru.cft.util.SortParams;
+import ru.cft.util.SortType;
 
 public class Sorter {
     private SortParams sortParams;
-    private FileWriter outFileWriter;
-    private List<FileReader> inputFilesReaders = new ArrayList<>();
+    private BufferedWriter outFileWriter;
+    private Map<FileElementReader, String> inputFilesReaders = new HashMap<>();
+    
 
     public Sorter(SortParams sortParams){
         this.sortParams = sortParams;
@@ -28,7 +34,7 @@ public class Sorter {
             for(String inFileName : sortParams.getInputFilesNames()){
 
                 try {
-                    inputFilesReaders.add(new FileReader(inFileName));
+                    inputFilesReaders.put(new FileElementReader(new FileReader(inFileName), inFileName), null);
                 } catch (FileNotFoundException e) {
                     System.out.println("Файл с именем: " + inFileName + " не найден! Имя файла будет пропущено.");
                 }
@@ -38,9 +44,55 @@ public class Sorter {
                 throw new IllegalArgumentException("Не найдено ни одного входного файла! Проверьте правильность аргументов");
             }
 
-            outFileWriter = new FileWriter(sortParams.getOutputFileName());
+            outFileWriter = new BufferedWriter(new FileWriter(sortParams.getOutputFileName()));
 
-            
+            while(true){
+                
+                for(Map.Entry<FileElementReader, String> inReader : inputFilesReaders.entrySet()){
+                    if(inReader.getKey().isNeedToReadNext()){
+                        String line;
+                        if ((line = inReader.getKey().readLine()) != null) {
+
+                            if (sortParams.getSortType().equals(SortType.DIGIT)) {
+                                if (!NumberChecker.isNumeric(line)) {
+                                    System.out.println("Обнаружен неверный формат числовых данных во входном файле: "
+                                            + inReader.getKey().getFileName() + ", часть данных будет потеряна!");
+                                    inReader.getKey().close();
+                                    inputFilesReaders.remove(inReader.getKey());
+                                }
+                            }
+
+                            if (sortParams.getSortType().equals(SortType.STR)) {
+                                if (line.contains(" ")) {
+                                    System.out.println("Обнаружена строка, содержащая пробел в файле:"
+                                            + inReader.getKey().getFileName() + ", часть данных будет потеряна!");
+                                    inReader.getKey().close();
+                                    inputFilesReaders.remove(inReader.getKey());
+                                }
+                            }
+
+                            inReader.setValue(line);
+                            inReader.getKey().setNeedToReadNext(false);
+
+                        } else {
+                            inReader.getKey().close();
+                            inputFilesReaders.remove(inReader.getKey());
+                        }
+                    }
+                }
+
+                if (inputFilesReaders.size() > 0) {
+                    String nextOutElement = MapReadersUtil.findNextOrderElement(inputFilesReaders.values(), sortParams.getSortDirection());
+                    outFileWriter.write(nextOutElement + "\n");
+
+                    for (Map.Entry<FileElementReader, String> inReader : inputFilesReaders.entrySet()) {
+                        if (inReader.getValue().equals(nextOutElement)) {
+                            inReader.getKey().setNeedToReadNext(true);
+                        }
+                    }
+                }
+                
+            }
 
         }
         catch(IOException exception){
@@ -53,17 +105,15 @@ public class Sorter {
                     outFileWriter.close();
                 }
                 
-                for(FileReader inFileReader : inputFilesReaders){
-                    if(inFileReader!= null){
-                        inFileReader.close();
+                for(Map.Entry<FileElementReader, String> inReader : inputFilesReaders.entrySet()){
+                    if(inReader.getKey()!= null){
+                        inReader.getKey().close();
                     }
                 }
             }
             catch(IOException exception2){
                 System.out.println(exception2.getMessage());
             }
-            
         }
-        
     }
 }
