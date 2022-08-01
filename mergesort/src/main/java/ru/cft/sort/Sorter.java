@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import ru.cft.util.FileElementReader;
-import ru.cft.util.MapReadersUtil;
-import ru.cft.util.NumberChecker;
-import ru.cft.util.SortParams;
-import ru.cft.util.SortType;
+import ru.cft.params.SortParams;
+import ru.cft.params.SortType;
+import ru.cft.utils.FileElementReader;
+import ru.cft.utils.MapReadersUtil;
+import ru.cft.utils.NumberChecker;
 
 public class Sorter {
     private SortParams sortParams;

@@ -5,10 +5,10 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 
+import ru.cft.params.SortDirection;
+import ru.cft.params.SortParams;
+import ru.cft.params.SortType;
 import ru.cft.sort.Sorter;
-import ru.cft.util.SortDirection;
-import ru.cft.util.SortParams;
-import ru.cft.util.SortType;
 
 public class App 
 {

@@ -1,4 +1,4 @@
-package ru.cft.util;
+package ru.cft.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

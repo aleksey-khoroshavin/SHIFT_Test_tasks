@@ -1,6 +1,8 @@
-package ru.cft.util;
+package ru.cft.utils;
 
 import java.util.Collection;
+
+import ru.cft.params.SortDirection;
 
 public class MapReadersUtil {
     public static String findNextOrderElement(Collection<String> values, SortDirection sortDirection){
