@@ -5,6 +5,7 @@ import java.io.Reader;
 
 public class FileElementReader extends BufferedReader{
     private String fileName;
+    private String prevReadElement;
 
     private boolean needToReadNext = true;
 
@@ -23,5 +24,13 @@ public class FileElementReader extends BufferedReader{
 
     public boolean isNeedToReadNext(){
         return needToReadNext;
+    }
+
+    public String getPrevReadElement(){
+        return this.prevReadElement;
+    }
+
+    public void setPrevReadElement(String str){
+        this.prevReadElement = str;
     }
 }
