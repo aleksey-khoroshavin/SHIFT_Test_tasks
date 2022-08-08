@@ -45,7 +45,7 @@ public abstract class AbstractSorter {
 
     protected abstract String getLimitFromIterLines(List<String> values, SortDirection sortDirection);
 
-    protected void allowSrcWithLImitToReadNext(ElementReaderList elementReaderList, String limit){
+    protected void allowSrcWithLimitToReadNext(ElementReaderList elementReaderList, String limit){
         for (ElementReader inReader : elementReaderList.getFileReaders()) {
             if (inReader.getPrevReadElement().compareTo(limit) == 0) {
                 inReader.setNeedToReadNext(true);
