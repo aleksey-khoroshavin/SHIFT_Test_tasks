@@ -55,9 +55,9 @@ public class ArgumentsParser {
             throw new IllegalArgumentException("Указаны две разные опции типа сортируемых элементов! Выбрана может быть лишь одна!");
         }
 
-        if(cmd.hasOption("s")){
+        if (cmd.hasOption("s")) {
             params.setSortType(SortType.STR);
-        }else{
+        } else {
             params.setSortType(SortType.DIGIT);
         }
     }
@@ -71,14 +71,14 @@ public class ArgumentsParser {
             params.setSortDirection(SortDirection.ASC);
         }
 
-        if(cmd.hasOption("d")){
+        if (cmd.hasOption("d")) {
             params.setSortDirection(SortDirection.DESC);
-        }else if(cmd.hasOption("a")){
+        } else if (cmd.hasOption("a")) {
             params.setSortDirection(SortDirection.ASC);
         }
     }
 
-    private void parseOutFileName(String args[]){
+    private void parseOutFileName(String[] args){
         if(args[1].length() > 2){
             params.setOutputFileName(args[1]);
         }else{
