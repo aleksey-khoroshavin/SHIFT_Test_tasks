@@ -1,4 +1,4 @@
-package ru.cft.params;
+package ru.cft.parser.params;
 
 import java.util.ArrayList;
 import java.util.List;

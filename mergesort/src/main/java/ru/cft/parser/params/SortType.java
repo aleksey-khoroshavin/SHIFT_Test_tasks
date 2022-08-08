@@ -1,4 +1,4 @@
-package ru.cft.params;
+package ru.cft.parser.params;
 
 public enum SortType {
     STR,

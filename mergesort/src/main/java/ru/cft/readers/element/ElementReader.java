@@ -1,25 +1,26 @@
-package ru.cft.utils;
+package ru.cft.readers.element;
 
 import java.io.BufferedReader;
-import java.io.Reader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-public class FileElementReader extends BufferedReader{
-    private String fileName;
+public class ElementReader extends BufferedReader{
+    private String sourceName;
     private String prevReadElement;
 
     private boolean needToReadNext = true;
 
-    public FileElementReader(Reader reader, String fileName) {
-        super(reader);
-        this.fileName = fileName;
+    public ElementReader(InputStream inputStream, String sourceName) {
+        super(new InputStreamReader(inputStream));
+        this.sourceName = sourceName;
     }
     
     public void setNeedToReadNext(boolean value){
         this.needToReadNext = value;
     }
 
-    public String getFileName(){
-        return this.fileName;
+    public String getSourceName(){
+        return this.sourceName;
     }
 
     public boolean isNeedToReadNext(){
