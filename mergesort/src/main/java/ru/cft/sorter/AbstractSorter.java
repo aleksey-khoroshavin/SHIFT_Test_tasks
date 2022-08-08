@@ -27,7 +27,7 @@ public abstract class AbstractSorter {
 
                     String limit = getLimitFromIterLines(iterationLines, sortParams.getSortDirection());
 
-                    allowSrcWithLImitToReadNext(inputFilesReaders, limit);
+                    allowSrcWithLimitToReadNext(inputFilesReaders, limit);
 
                     outFileWriter.write(limit + System.lineSeparator());
 
