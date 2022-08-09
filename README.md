@@ -15,7 +15,10 @@ mvn clean package
 3. имя выходного файла, обязательное; 
 4. остальные параметры – имена входных файлов, не менее одного.
 
-Примеры запуска из командной строки для Windows: 
-java -jar mergesort-1.0-jar-with-dependences -i -a out.txt in.txt (для целых чисел по возрастанию)
-java -jar mergesort-1.0-jar-with-dependences -s out.txt in1.txt in2.txt in3.txt (для строк по возрастанию)
-java -jar mergesort-1.0-jar-with-dependences -d -s out.txt in1.txt in2.txt (для строк по убыванию)
+Примеры запуска из командной строки для Windows:
+
+java -jar mergesort-1.0-jar-with-dependences -i -a out.txt in.txt (для целых чисел по возрастанию);
+
+java -jar mergesort-1.0-jar-with-dependences -s out.txt in1.txt in2.txt in3.txt (для строк по возрастанию);
+
+java -jar mergesort-1.0-jar-with-dependences -d -s out.txt in1.txt in2.txt (для строк по убыванию);
