@@ -11,18 +11,18 @@ import ru.cft.readers.element.ElementReader;
 public class ElementReaderList implements Closeable{
     private static Logger logger = Logger.getLogger(ElementReaderList.class.getName());
 
-    private List<ElementReader> iFileElementReaders;
+    private List<ElementReader> elementReaders;
 
-    public ElementReaderList(List<ElementReader> iFileElementReaders){
-        this.iFileElementReaders = iFileElementReaders;
+    public ElementReaderList(List<ElementReader> elementReaders){
+        this.elementReaders = elementReaders;
     }
 
     @Override
     public void close() throws IOException {
         try {
-            for (ElementReader fReader : iFileElementReaders) {
-                if(fReader!= null){
-                    fReader.close();
+            for (ElementReader reader : elementReaders) {
+                if(reader!= null){
+                    reader.close();
                 }
             }
         } catch (Exception e) {
@@ -30,16 +30,16 @@ public class ElementReaderList implements Closeable{
         }
     }
 
-    public void add(ElementReader iReader){
-        this.iFileElementReaders.add(iReader);
+    public void add(ElementReader reader){
+        this.elementReaders.add(reader);
     }
 
-    public List<ElementReader> getFileReaders(){
-        return this.iFileElementReaders;
+    public List<ElementReader> getElementReaders(){
+        return this.elementReaders;
     }
 
     public boolean isListEmpty(){
-        return this.iFileElementReaders.isEmpty();
+        return this.elementReaders.isEmpty();
     }
     
 }

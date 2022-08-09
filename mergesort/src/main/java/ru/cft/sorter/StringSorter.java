@@ -20,10 +20,10 @@ public class StringSorter extends AbstractSorter{
     private Logger logger = Logger.getLogger(StringSorter.class.getName());
 
     @Override
-    protected List<String> getLineFromEachInputFile(ElementReaderList elementReaderList, SortDirection sortDirection) {
+    protected List<String> getLineFromEachInputSrc(ElementReaderList elementReaderList, SortDirection sortDirection) {
         List<String> iterLines = new ArrayList<>();
 
-        ListIterator<ElementReader> iterator = elementReaderList.getFileReaders().listIterator();
+        ListIterator<ElementReader> iterator = elementReaderList.getElementReaders().listIterator();
 
         while(iterator.hasNext()){
             ElementReader reader = iterator.next();

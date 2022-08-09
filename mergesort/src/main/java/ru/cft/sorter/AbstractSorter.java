@@ -21,7 +21,7 @@ public abstract class AbstractSorter {
             ElementReaderList inputFilesReaders = new ElementReaderList(FileChecker.initInputSources(sortParams));
         ){
             while(true){
-                List<String> iterationLines = getLineFromEachInputFile(inputFilesReaders, sortParams.getSortDirection());
+                List<String> iterationLines = getLineFromEachInputSrc(inputFilesReaders, sortParams.getSortDirection());
 
                 if (!inputFilesReaders.isListEmpty()) {
 
@@ -41,12 +41,12 @@ public abstract class AbstractSorter {
         }
     }
 
-    protected abstract List<String> getLineFromEachInputFile(ElementReaderList elementReaderList, SortDirection sortDirection);
+    protected abstract List<String> getLineFromEachInputSrc(ElementReaderList elementReaderList, SortDirection sortDirection);
 
     protected abstract String getLimitFromIterLines(List<String> values, SortDirection sortDirection);
 
     protected void allowSrcWithLimitToReadNext(ElementReaderList elementReaderList, String limit){
-        for (ElementReader inReader : elementReaderList.getFileReaders()) {
+        for (ElementReader inReader : elementReaderList.getElementReaders()) {
             if (inReader.getPrevReadElement().compareTo(limit) == 0) {
                 inReader.setNeedToReadNext(true);
                 break;
