@@ -25,12 +25,12 @@ public class FileChecker {
             try {
                 inputFilesReaders.add(new ElementReader(new FileInputStream(inFileName), inFileName));
             } catch (FileNotFoundException e) {
-                logger.log(Level.SEVERE, String.format("Файл с именем:%s не найден! Имя файла будет пропущено.", inFileName));
+                logger.log(Level.WARNING, String.format("File with name:%s not found! This file name will be skipped!", inFileName));
             }
         }
 
         if(inputFilesReaders.isEmpty()){
-            throw new IllegalArgumentException("Не найдено ни одного входного файла! Проверьте правильность аргументов");
+            throw new IllegalArgumentException("Not found any input files! Check input files");
         }
 
         return inputFilesReaders;

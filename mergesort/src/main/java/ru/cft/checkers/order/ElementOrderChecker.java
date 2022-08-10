@@ -11,7 +11,7 @@ public abstract class ElementOrderChecker {
         }
         
         String msg = String.format(
-                "Обнаружен неверный порядок эелементов в файле: %s, часть данных будет потеряна! %n Проблема в идущих подряд элементах: %s и %s",
+                "Wrong order in file: %s, some data will be lost! %n Problem with elements: %s and %s",
                 srcName, currElement, prevElement);
 
         if (sortDirection.equals(SortDirection.ASC)) {

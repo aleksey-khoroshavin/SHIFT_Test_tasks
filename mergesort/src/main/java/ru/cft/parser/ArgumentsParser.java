@@ -42,17 +42,17 @@ public class ArgumentsParser {
 
     private void checkArgsLength(String[] args) throws IllegalArgumentException{
         if(args.length < 3){
-            throw new IllegalArgumentException("Неверное количество аргументов!");
+            throw new IllegalArgumentException("Wrong arguments count!");
         }
     }
 
     private void parseSortType(CommandLine cmd){
         if(!cmd.hasOption("s") && !cmd.hasOption("i")){
-            throw new IllegalArgumentException("Не задан тип сортируемых элементов!");
+            throw new IllegalArgumentException("Type of sorting elements not specified!");
         }
 
         if(cmd.hasOption("s") && cmd.hasOption("i")){
-            throw new IllegalArgumentException("Указаны две разные опции типа сортируемых элементов! Выбрана может быть лишь одна!");
+            throw new IllegalArgumentException("There are two sorting elements type optinos! There is can be only one!");
         }
 
         if (cmd.hasOption("s")) {
@@ -64,7 +64,7 @@ public class ArgumentsParser {
 
     private void parseSortDirection(CommandLine cmd){
         if(cmd.hasOption("d") && cmd.hasOption("a")){
-            throw new IllegalArgumentException("Указаны две разные опции направления сортировки! Выбрана может быть лишь одна!");
+            throw new IllegalArgumentException("There ara two sorting direction options! There is can be only one!");
         }
 
         if(!cmd.hasOption("d") && !cmd.hasOption("a")){

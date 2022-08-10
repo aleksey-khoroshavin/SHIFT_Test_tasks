@@ -10,7 +10,7 @@ public class NumberChecker {
         }
         catch(NumberFormatException exception){
             String msg = String.format(
-                    "Обнаружен неверный формат числовых данных во входном файле: %s, строка:[%s], часть данных будет потеряна!",
+                    "Found incorrect number format in input source: %s, line:[%s], some data will be lost!",
                     srcName, strNum);
             throw new IntegerElementFormatException(msg);
         }

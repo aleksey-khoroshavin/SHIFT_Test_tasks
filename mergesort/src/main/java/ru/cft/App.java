@@ -12,6 +12,7 @@ public class App
     private static Logger logger = Logger.getLogger(App.class.getName());
     public static void main( String[] args )
     {
+        System.setProperty("java.util.logging.SimpleFormatter.format", "%4$s: %5$s %n");
         ArgumentsParser argumentsParser = new ArgumentsParser();
         argumentsParser.initOptions();
 

@@ -3,6 +3,7 @@ package ru.cft.sorter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,10 +47,13 @@ public class StringSorter extends AbstractSorter{
                         reader.setPrevReadElement(line);
                         reader.setNeedToReadNext(false);
                     }
+                    
                 }
                 catch(Exception exception){
-                    logger.log(Level.SEVERE, exception.getMessage());
+                    logger.addHandler(new ConsoleHandler());
+                    logger.log(Level.WARNING, exception.getMessage());
                     iterator.remove();
+                    continue;
                 }
             }
 

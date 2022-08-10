@@ -46,10 +46,12 @@ public class IntegerSorter extends AbstractSorter{
                         reader.setPrevReadElement(line);
                         reader.setNeedToReadNext(false);
                     }
+                    
                 }
                 catch(Exception exception){
-                    logger.log(Level.SEVERE, exception.getMessage());
+                    logger.log(Level.WARNING, exception.getMessage());
                     iterator.remove();
+                    continue;
                 }
             }
 

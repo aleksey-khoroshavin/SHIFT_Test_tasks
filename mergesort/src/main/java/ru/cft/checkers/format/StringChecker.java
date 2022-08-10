@@ -6,7 +6,7 @@ public class StringChecker {
 
     public void isCorrectString(String str, String srcName) throws StringElementFormatException {
         if (str.contains(" ")) {
-            String msg = String.format("Обнаружена строка, содержащая пробел во входном файле: %s, строка:[%s], часть данных будет потеряна!", srcName, str);
+            String msg = String.format("Found string with space in input source: %s, line:[%s], some data will be lost!", srcName, str);
             throw new StringElementFormatException(msg);
         }
     }
