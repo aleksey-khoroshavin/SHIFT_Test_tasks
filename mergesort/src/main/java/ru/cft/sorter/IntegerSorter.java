@@ -34,6 +34,7 @@ public class IntegerSorter extends AbstractSorter{
                 try{
                     line = reader.readLine();
                     if (line == null || line.isEmpty()) {
+                        reader.setEndOfSource(true);
                         iterator.remove();
                     } else {
                         NumberChecker numberChecker = new NumberChecker();
@@ -54,7 +55,10 @@ public class IntegerSorter extends AbstractSorter{
                 }
             }
 
-            iterLines.add(reader.getPrevReadElement());
+            if(!reader.isEndOfSourse()){
+                iterLines.add(reader.getPrevReadElement());
+            }
+            
         }
 
         return iterLines;

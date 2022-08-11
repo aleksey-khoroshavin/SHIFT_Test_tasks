@@ -9,6 +9,7 @@ public class ElementReader extends BufferedReader{
     private String prevReadElement;
 
     private boolean needToReadNext = true;
+    private boolean endOfSource = false;
 
     public ElementReader(InputStream inputStream, String sourceName) {
         super(new InputStreamReader(inputStream));
@@ -33,5 +34,13 @@ public class ElementReader extends BufferedReader{
 
     public void setPrevReadElement(String str){
         this.prevReadElement = str;
+    }
+
+    public void setEndOfSource(boolean value){
+        this.endOfSource = value;
+    }
+
+    public boolean isEndOfSourse(){
+        return this.endOfSource;
     }
 }
