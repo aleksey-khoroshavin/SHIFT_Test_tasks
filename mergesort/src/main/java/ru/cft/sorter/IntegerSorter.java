@@ -35,7 +35,6 @@ public class IntegerSorter extends AbstractSorter{
                     line = reader.readLine();
                     if (line == null || line.isEmpty()) {
                         iterator.remove();
-                        continue;
                     } else {
                         NumberChecker numberChecker = new NumberChecker();
                         numberChecker.isCorrectInteger(line, reader.getSourceName());

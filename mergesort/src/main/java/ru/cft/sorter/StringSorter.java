@@ -3,7 +3,6 @@ package ru.cft.sorter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,7 +35,6 @@ public class StringSorter extends AbstractSorter{
                     line = reader.readLine();
                     if (line == null || line.isEmpty()) {
                         iterator.remove();
-                        continue;
                     } else {
                         StringChecker stringChecker = new StringChecker();
                         stringChecker.isCorrectString(line, reader.getSourceName());
@@ -50,7 +48,6 @@ public class StringSorter extends AbstractSorter{
                     
                 }
                 catch(Exception exception){
-                    logger.addHandler(new ConsoleHandler());
                     logger.log(Level.WARNING, exception.getMessage());
                     iterator.remove();
                     continue;
